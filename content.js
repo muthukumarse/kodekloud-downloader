@@ -6,7 +6,7 @@ var orderIndex = 0;
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if( request.message === "clicked_browser_action" ) {
-            downloadFileFromText($(".course-sidebar h2").text().toString() + '.txt', downloadLinks);
+            downloadFileFromText($(".course-sidebar h2").text().toString() + '.sh', downloadLinks);
         }
     }
 );
@@ -28,7 +28,7 @@ $('li')
 function arrengeDownloadLinks(index, url) {
     getLectureInfo(url, function (id, title) {
         getVideoUrl(wistiaIframeBaseUrl + id, function(url) {
-            downloadLinks[index] = title + ": " + url + "\n";
+            downloadLinks[index] = "curl " + url + " --output \"" + (index+1) + " - " + title + ".mp4\"\n";
         });
     });
 }
